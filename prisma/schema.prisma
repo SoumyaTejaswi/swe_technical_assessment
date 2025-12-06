@@ -1,0 +1,23 @@
+// This is the Prisma schema file.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Vehicle {
+  id               String   @id @default(uuid())
+  vin              String   @unique
+  description      String
+  manufacturerName String   @map("manufacturer_name")
+  model            String
+  imageLinks       String[] @map("image_links")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@map("vehicles")
+}
